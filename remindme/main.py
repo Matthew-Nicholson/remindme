@@ -1,19 +1,32 @@
-import discord
+from discord import Intents
+from discord.ext import commands
 
-intents = discord.Intents.default()
-intents.typing = False
-intents.presences = False
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+TOKEN = os.getenv("DISCORD_API_TOKEN")
+
+intents: Intents = Intents.default()
+# print all the intents
+
+intents.message_content = True
 
 
-client = discord.Client(intents=intents)
+bot: commands.Bot = commands.Bot(command_prefix="!", intents=intents)
 
 
-@client.event
+@bot.event
 async def on_ready():
-    print(f"We have logged in as {client.user}")
+    print("------")
 
 
-@client.event
-async def on_message(message):
-    # we do not want the bot to reply to itself
-    return
+@bot.command(name="remindme")
+async def remindme(ctx):
+    print("working")
+    await ctx.send("working")
+
+
+bot.run(TOKEN)
