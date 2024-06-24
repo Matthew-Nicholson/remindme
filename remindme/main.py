@@ -1,7 +1,7 @@
 from discord import Intents
 from discord.ext import commands
 
-from remindme.decorators.save import save
+from remindme.utils.save import save
 
 import os
 from datetime import datetime
